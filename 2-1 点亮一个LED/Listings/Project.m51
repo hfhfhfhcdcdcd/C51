@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/23/2026  15:34:53  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/23/2026  15:38:12  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
@@ -27,7 +27,7 @@ LINK MAP OF MODULE:  .\Objects\Project (?C_STARTUP)
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
             CODE    0003H     000CH     UNIT         ?C_C51STARTUP
-            CODE    000FH     0004H     UNIT         ?PR?MAIN?MAIN
+            CODE    000FH     0005H     UNIT         ?PR?MAIN?MAIN
 
 
 
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Project (?C_STARTUP)
   N:0100H         SYMBOL        IBPSTACKTOP
   N:0080H         SYMBOL        IDATALEN
   C:0006H         SYMBOL        IDATALOOP
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/23/2026  15:34:53  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/23/2026  15:38:12  PAGE 2
 
 
   N:0000H         SYMBOL        PBPSTACK
@@ -101,8 +101,10 @@ SYMBOL TABLE OF MODULE:  .\Objects\Project (?C_STARTUP)
   C:000FH         LINE#         3
   C:000FH         LINE#         4
   C:0012H         LINE#         5
+  C:0012H         LINE#         6
+  C:0012H         LINE#         8
   -------         ENDPROC       MAIN
   -------         ENDMOD        MAIN
 
-Program Size: data=9.0 xdata=0 code=19
+Program Size: data=9.0 xdata=0 code=20
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

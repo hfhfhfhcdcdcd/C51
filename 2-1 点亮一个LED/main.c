@@ -1,5 +1,9 @@
 #include <reg52.h>
 void main()
 {
-    P2 = 0x00;
+    P2 = 0xaa;
+    while(1)
+    {
+        
+    }
 }
