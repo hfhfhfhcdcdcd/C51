@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              04/24/2026 13:41:35 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              04/24/2026 13:59:03 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -28,42 +28,34 @@ line level    source
   18          
   19          void main()
   20          {
-  21   1          while (1)
-  22   1          {
-  23   2              if (P3_1 == 0)
-  24   2              {
-  25   3                  Delay1ms(20);
-  26   3                  while (P3_1 == 0);
-  27   3                  Delay1ms(20);
-  28   3      #ifndef P2_0_H
-  29   3      #define P2_0_H
-  30   3                  P2_0 = ~P2_0;
-  31   3      #endif
+  21   1          int i = 0;
+  22   1          while (1)
+  23   1          {
+  24   2              if ((P3_1 == 0)&&(i<8))
+  25   2              {
+  26   3                  Delay1ms(20);
+  27   3                  while (P3_1 == 0);
+  28   3                  Delay1ms(20);
+  29   3                  P2 &= ~(1 << i);
+  30   3                  i++;
+  31   3                  
   32   3              }
-  33   2              if (P3_1 == 0)
+  33   2              if (i >= 8)
   34   2              {
-  35   3                  Delay1ms(20);
-  36   3                  while (P3_1 == 0);
-  37   3                  Delay1ms(20);
-  38   3      #ifndef P2_1_H
-  39   3      #define P2_1_H
-  40   3                  P2_1 = ~P2_1;
-  41   3      #endif
-  42   3              }
-  43   2          }
-  44   1      }
+  35   3                  i = 0;
+  36   3              }
+  37   2          }
+  38   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     54    ----
+   CODE SIZE        =     91    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
-C51 COMPILER V9.60.7.0   MAIN                                                              04/24/2026 13:41:35 PAGE 2   
-
 END OF MODULE INFORMATION.
 
 

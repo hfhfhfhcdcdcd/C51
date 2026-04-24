@@ -18,27 +18,21 @@ void Delay1ms(unsigned int xms)		//@12.000MHz
 
 void main()
 {
+    int i = 0;
     while (1)
     {
-        if (P3_1 == 0)
+        if ((P3_1 == 0)&&(i<8))
         {
             Delay1ms(20);
             while (P3_1 == 0);
             Delay1ms(20);
-#ifndef P2_0_H
-#define P2_0_H
-            P2_0 = ~P2_0;
-#endif
+            P2 &= ~(1 << i);
+            i++;
+            
         }
-        if (P3_1 == 0)
+        if (i >= 8)
         {
-            Delay1ms(20);
-            while (P3_1 == 0);
-            Delay1ms(20);
-#ifndef P2_1_H
-#define P2_1_H
-            P2_1 = ~P2_1;
-#endif
+            i = 0;
         }
     }
 }
