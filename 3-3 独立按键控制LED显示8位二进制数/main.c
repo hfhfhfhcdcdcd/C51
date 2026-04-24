@@ -28,7 +28,7 @@ void main()
             while (P3_1 == 0);
             Delay1ms(20);
 
-            P2--;
+            P2++;
         }
     }
 }
