@@ -23,6 +23,7 @@ void main()
     {
         if ((P3_1 == 0)&&(i<8))
         {
+            P2=0xff;
             Delay1ms(20);
             while (P3_1 == 0);
             Delay1ms(20);
