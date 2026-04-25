@@ -391,6 +391,16 @@
               <FileType>5</FileType>
               <FilePath>.\Delay.h</FilePath>
             </File>
+            <File>
+              <FileName>Nixie.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Nixie.c</FilePath>
+            </File>
+            <File>
+              <FileName>Nixie.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Nixie.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
