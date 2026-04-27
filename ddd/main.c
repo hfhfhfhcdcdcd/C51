@@ -9,7 +9,7 @@ void main()
     while (1)
     {
         
-        LCD_ShowString(2, 1, "lvlvlv");
+        LCD_ShowString(2, 1, "lvlv");
         LCD_ShowNum(1, 1, 123, 3);
         P2_0 = 0;
 
