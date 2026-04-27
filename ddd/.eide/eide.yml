@@ -1,0 +1,69 @@
+version: "4.1"
+name: ddd
+type: C51
+deviceName: null
+packDir: null
+srcDirs: []
+virtualFolder:
+  name: <virtual_root>
+  files:
+    - path: Delay.c
+    - path: Delay.h
+    - path: LCD1602.c
+    - path: LCD1602.h
+    - path: main.c
+    - path: MatrixKey.c
+    - path: MatrixKey.h
+  folders: []
+dependenceList: []
+outDir: build
+miscInfo:
+  uid: db3255172bc7195f9904b0c060223f9f
+targets:
+  Debug:
+    cppPreprocessAttrs:
+      defineList: []
+      incList:
+        - e:/Keil_v5_C51/C51/INC/Atmel
+        - .
+      libList: []
+    excludeList: []
+    settings: {}
+    toolchain: Keil_C51
+    toolchainConfigMap:
+      Keil_C51:
+        options:
+          version: 2
+          afterBuildTasks: []
+          asm-compiler: {}
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            optimization-level: level-8
+            optimization-type: SPEED
+          global:
+            ram-mode: SMALL
+            rom-mode: LARGE
+          linker:
+            output-format: elf
+            remove-unused: true
+      SDCC:
+        options:
+          version: 3
+          afterBuildTasks: []
+          asm-compiler: {}
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            language-c: c99
+          global:
+            device: mcs51
+            optimize-type: speed
+            use-non-free: false
+          linker:
+            $mainFileName: main
+            output-format: hex
+    uploadConfigMap:
+      Custom:
+        bin: ""
+        commandLine: python ./tools/stcflash.py -p COM8 "${hexFile}"
+        eraseChipCommand: ""
+    uploader: Custom
