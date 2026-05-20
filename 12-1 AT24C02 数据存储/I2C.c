@@ -1,7 +1,7 @@
 #include <regx52.h>
 
-sbit I2C_SDA = P2 ^ 1;
-sbit I2C_SCL = P2 ^ 0;
+sbit I2C_SCL = P2 ^ 1;
+sbit I2C_SDA = P2 ^ 0;
 
 /**
   * @brief: I2C开始
@@ -53,7 +53,10 @@ unsigned char I2C_RecieveByte(void)
     for (i = 0;i < 8;i++)
     {
         I2C_SCL = 1;
-        Rec_Byte |= (0x80 >> i);
+        if (I2C_SDA)
+        {
+            Rec_Byte |= (0x80 >> i);
+        }
         I2C_SCL = 0;
     }
     return Rec_Byte;
