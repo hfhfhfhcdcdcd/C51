@@ -45,7 +45,11 @@ unsigned char tries;
 unsigned char Score_Count = 5;
 
 bit game_over;
-
+/**
+  * @brief: 判断食物的位置是否与蛇身冲突
+  * @param:食物的位置。x食物对应的列；y食物对应的行
+  * @retval:返回1：代表两者冲突，重新生成食物的位置；返回0：两者不冲突，无需重新生成。
+  */
 bit IsFoodOnSnake(unsigned char x, unsigned char y)
 {
     unsigned char i;
@@ -69,9 +73,10 @@ void InitSnake(void)
     score = 0;
     
     // 随机生成食物（确保不与蛇重叠）
-    do {
-            food_x = (TL0% 6)+1;
-            food_y = (TH0% 6)+1;
+    do
+    {
+        food_x = (TL0 % 6) + 1;
+        food_y = (TH0 % 6) + 1;
     } while (IsFoodOnSnake(food_x, food_y));
 }
 
