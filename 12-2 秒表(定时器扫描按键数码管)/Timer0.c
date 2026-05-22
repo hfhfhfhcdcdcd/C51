@@ -23,6 +23,5 @@ void Timer0Init()
     {
         T0Count = 0;
     }
-        
-
 }*/
+

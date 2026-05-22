@@ -1,16 +1,4 @@
-![alt text](image.png)
+for循环里++，有的时候会影响数码管显示。不加for直接++，数码管就好了。
+![alt text](image-6.png)这个不影响
 
-开始、停止：
-![alt text](image-4.png)
-
-发送一个字节：
-![alt text](image-3.png)
-
-接受一个字节：
-![alt text](image-2.png)
-
-发送、接收应答：
-![alt text](image-1.png)
-
-字节写、随机读数据帧：
-![alt text](image-5.png)
+![alt text](image-7.png)这个影响
