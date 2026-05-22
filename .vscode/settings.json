@@ -15,7 +15,8 @@
         "buzzer.h": "c",
         "nixie.h": "c",
         "stdlib.h": "c",
-        "STDLIB.H": "cpp"
+        "STDLIB.H": "cpp",
+        "at24c02.h": "c"
     },
     "Codegeex.CompletionDelay": 0.5
 }
