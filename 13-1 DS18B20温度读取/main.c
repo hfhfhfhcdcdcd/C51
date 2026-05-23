@@ -2,8 +2,9 @@
 #include "delay.h"
 #include "LCD1602.h"
 #include "DS18B20.h"
+#include <STDIO.H> 
 unsigned char AckFlag;
-int Temperature;
+float Temperature;
 void main()
 {
     LCD_Init();
@@ -11,6 +12,8 @@ void main()
     while (1)
     {
         Temperature = DS18B20_GetTemp();
-        LCD_ShowSignedNum(2, 1, Temperature, 2);
+        LCD_ShowNum(2,2,Temperature,3);		//显示温度整数部分
+		LCD_ShowChar(2,5,'.');		//显示小数点
+		LCD_ShowNum(2,6,(unsigned long)(Temperature*10000)%10000,4);
     }
 }

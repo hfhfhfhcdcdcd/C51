@@ -1,6 +1,6 @@
 #include "REGX52.H"
 #include "Delay.h"
-#include <intrins.h>
+#include <intrins.h>  
 
 sbit OneWire_DQ = P3 ^ 7;
 
