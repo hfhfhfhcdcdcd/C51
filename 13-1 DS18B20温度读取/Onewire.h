@@ -3,8 +3,8 @@
 
 unsigned char Onewire_Init(void);
 void OneWire_SendBit(bit Bit);
-bit OneWire_RecieveBit(void);
+bit OneWire_ReceiveBit(void);
 void OneWire_SendByte(unsigned char Byte);
-unsigned char OneWire_RecieveByte(void);
+unsigned char OneWire_ReceiveByte(void);
 
 #endif

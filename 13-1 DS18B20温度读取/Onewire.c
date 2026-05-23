@@ -1,72 +1,86 @@
-#include "REGX52.H"
-#include "Delay.h"
-#include <intrins.h>  
+#include <REGX52.H>
 
-sbit OneWire_DQ = P3 ^ 7;
+//引脚定义
+sbit OneWire_DQ=P3^7;
 
-unsigned char Onewire_Init(void)
+/**
+  * @brief  单总线初始化
+  * @param  无
+  * @retval 从机响应位，0为响应，1为未响应
+  */
+unsigned char OneWire_Init(void)
 {
-    bit AckBit;
-    OneWire_DQ = 1;
-    OneWire_DQ = 0;
-    Delay480us();
-    OneWire_DQ = 1;
-    Delay80us();
-    AckBit = OneWire_DQ;
-    OneWire_DQ = 1;
-    Delay480us();
-
-    return AckBit;
+	unsigned char i;
+	unsigned char AckBit;
+	OneWire_DQ=1;
+	OneWire_DQ=0;
+	i = 247;while (--i);		//Delay 500us
+	OneWire_DQ=1;
+	i = 32;while (--i);			//Delay 70us
+	AckBit=OneWire_DQ;
+	i = 247;while (--i);		//Delay 500us
+	return AckBit;
 }
 
-void OneWire_SendBit(bit Bit)
+/**
+  * @brief  单总线发送一位
+  * @param  Bit 要发送的位
+  * @retval 无
+  */
+void OneWire_SendBit(unsigned char Bit)
 {
-    OneWire_DQ = 0;
-    Delay10us();
-    OneWire_DQ = Bit;
-    if (Bit)
-    {
-        OneWire_DQ = 1;
-        Delay50us();
-    }
-    else
-    {
-        Delay50us();
-        OneWire_DQ = 1;
-    }
+	unsigned char i;
+	OneWire_DQ=0;
+	i = 4;while (--i);			//Delay 10us
+	OneWire_DQ=Bit;
+	i = 24;while (--i);			//Delay 50us
+	OneWire_DQ=1;
 }
 
-bit OneWire_RecieveBit(void)
+/**
+  * @brief  单总线接收一位
+  * @param  无
+  * @retval 读取的位
+  */
+unsigned char OneWire_ReceiveBit(void)
 {
-     bit b;
-    OneWire_DQ = 0;
-    _nop_(); _nop_();   // 拉低约2µs
-    OneWire_DQ = 1;     // 释放总线
-    _nop_(); _nop_();   // 稍延时，等待DS18B20输出
-    b = OneWire_DQ;
-    Delay50us();        // 保证读时隙总长至少60µs
-    return b;
+	unsigned char i;
+	unsigned char Bit;
+	OneWire_DQ=0;
+	i = 2;while (--i);			//Delay 5us
+	OneWire_DQ=1;
+	i = 2;while (--i);			//Delay 5us
+	Bit=OneWire_DQ;
+	i = 24;while (--i);			//Delay 50us
+	return Bit;
 }
 
+/**
+  * @brief  单总线发送一个字节
+  * @param  Byte 要发送的字节
+  * @retval 无
+  */
 void OneWire_SendByte(unsigned char Byte)
 {
-    unsigned char i;
-    for (i = 0;i < 8;i++)
-    {
-        OneWire_SendBit(Byte & (0x01 << i));
-    }
+	unsigned char i;
+	for(i=0;i<8;i++)
+	{
+		OneWire_SendBit(Byte&(0x01<<i));
+	}
 }
 
-unsigned char OneWire_RecieveByte(void)
+/**
+  * @brief  单总线接收一个字节
+  * @param  无
+  * @retval 接收的一个字节
+  */
+unsigned char OneWire_ReceiveByte(void)
 {
-    unsigned char i;
-    unsigned char Byte = 0x00;
-    for (i = 0;i < 8;i++)
-    {
-        if(OneWire_RecieveBit())
-        {
-            Byte |= (0x01 << i);
-        }
-    }
-    return Byte;
+	unsigned char i;
+	unsigned char Byte=0x00;
+	for(i=0;i<8;i++)
+	{
+		if(OneWire_ReceiveBit()){Byte|=(0x01<<i);}
+	}
+	return Byte;
 }
