@@ -16,7 +16,12 @@
         "nixie.h": "c",
         "stdlib.h": "c",
         "STDLIB.H": "cpp",
-        "at24c02.h": "c"
+        "at24c02.h": "c",
+        "ds18b20.h": "c",
+        "stdio.h": "c",
+        "STDIO.H": "cpp",
+        "stddef.h": "c",
+        "STDDEF.H": "cpp"
     },
     "Codegeex.CompletionDelay": 0.5
 }

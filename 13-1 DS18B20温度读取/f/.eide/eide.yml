@@ -22,6 +22,10 @@ virtualFolder:
     - path: ../Timer0.h
     - path: ../Nixie.c
     - path: ../Nixie.h
+    - path: ../DS18B20.c
+    - path: ../DS18B20.h
+    - path: ../Onewire.c
+    - path: ../Onewire.h
   folders: []
 dependenceList: []
 outDir: build
