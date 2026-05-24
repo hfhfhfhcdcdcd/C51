@@ -106,3 +106,15 @@ void main()
     }
 }
 
+void Timer0_Rountine() interrupt 1
+{
+    static unsigned int T0Count;
+    TH0 = 0xFC;
+    TL0 = 0x18;
+    T0Count ++;
+    if (T0Count == 20)
+    {
+        T0Count = 0;
+        Key_Loop();
+    }
+}

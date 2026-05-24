@@ -9,9 +9,11 @@
 
 float DS18B20_GetTemp(void)
 {
+    
     unsigned char LSB, MSB;
     int Raw;
     float Temp;
+    EA = 0; //关闭总中断
     Onewire_Init();
     OneWire_SendByte(DS18B20_SKIP_ROM);//跳过Rom
     OneWire_SendByte(DS18B20_CONVERT_T);
@@ -23,6 +25,6 @@ float DS18B20_GetTemp(void)
     MSB = OneWire_ReceiveByte();
     Raw = (MSB << 8) | LSB;
     Temp = Raw /16.0;
-
+    EA = 1; //开启总中断
     return Temp;
 }
