@@ -10,6 +10,8 @@ virtualFolder:
     - path: ../main.c
     - path: ../LCD1602.c
     - path: ../LCD1602.h
+    - path: ../Delay.c
+    - path: ../Delay.h
   folders: []
 dependenceList: []
 outDir: build
