@@ -3,19 +3,23 @@
 #include "LCD1602.h"
 #include "XPT2046.h"
 
-unsigned int ADValue0, ADValue1;
+unsigned int ADValue;
 void main()
 {
     LCD_Init();
-    LCD_ShowString(1, 1, "AD_8:");
-    LCD_ShowString(2, 1, "AD_12:");
+    LCD_ShowString(1, 1, "AD");
+    LCD_ShowString(1, 6, "Temp");
+    LCD_ShowString(1, 12, "light");
     while (1)
     {
-        ADValue0 = XPT2046_ReadXP(XPT2046_XP8);
-        LCD_ShowNum(1, 7, ADValue0, 4);
-        Delay(10);
-        ADValue1 = XPT2046_ReadXP(XPT2046_XP12);
-        LCD_ShowNum(2, 7, ADValue1, 4);
+        ADValue = XPT2046_ReadXP(XPT2046_XP8);//滑动电阻
+        LCD_ShowNum(2, 1, ADValue, 3);
+
+        ADValue = XPT2046_ReadXP(XPT2046_YP8);//热敏电阻
+        LCD_ShowNum(2, 6, ADValue, 3);
+
+        ADValue = XPT2046_ReadXP(XPT2046_VBAT8);//光敏电阻
+        LCD_ShowNum(2, 12, ADValue, 3);
         Delay(10);
     }
 }
