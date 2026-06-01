@@ -10,12 +10,15 @@ virtualFolder:
     - path: ../main.c
     - path: ../Delay.c
     - path: ../Delay.h
-    - path: ../Nixie.c
-    - path: ../Nixie.h
+    - path: ../../7-1 按键控制LED流水灯模式/key.c
+    - path: ../LCD1602.c
+    - path: ../LCD1602.h
+    - path: ../Int0.c
+    - path: ../Int0.h
+    - path: ../IR.c
+    - path: ../IR.h
     - path: ../Timer0.c
     - path: ../Timer0.h
-    - path: ../../7-1 按键控制LED流水灯模式/key.c
-    - path: ../key.h
   folders: []
 dependenceList: []
 outDir: build
