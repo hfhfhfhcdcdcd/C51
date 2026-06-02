@@ -1,8 +1,8 @@
 #include <REGX52.H>
 
-sbit LCD_E  = P3 ^ 7;
-sbit LCD_RS = P3 ^ 6;
-sbit LCD_RW = P3 ^ 5; // 1 读 0 写
+sbit LCD_E  = P2 ^ 7;
+sbit LCD_RS = P2 ^ 6;
+sbit LCD_RW = P2 ^ 5; // 1 读 0 写
 #define LCD_DATAPORT P0
 
 
