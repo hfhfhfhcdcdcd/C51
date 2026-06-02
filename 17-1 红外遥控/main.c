@@ -30,15 +30,15 @@ void main()
                 Num = 100;
                 
             }
-            if (Cmd == 0x15)
+            if (Cmd == IR_VOL_MINUS)
             {
                 Num--;
                 if (Num == 255) { Num = 100; }
             }
-            if (Cmd == 0x09)
+            if (Cmd == IR_VOL_ADD)
             {
                 Num++;
-                if (Num == 100) { Num = 0; }
+                if (Num == 101) { Num = 0; }
             }
             
             LCD_ShowHexNum(2, 1, Addr, 2);
