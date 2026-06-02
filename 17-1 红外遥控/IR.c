@@ -6,8 +6,8 @@
 #define STARTP  	(13500/1.085)+500 //开始信号所需的计数次数的下限
 #define STARTN  	(13500/1.085)-500
 
-#define REPEATP 	(10550/1.085)+200 //重复信号所需的计数次数的下限
-#define REPEATN 	(10550/1.085)-200
+#define REPEATP 	(11250/1.085)+500 //重复信号所需的计数次数的下限
+#define REPEATN 	(11250/1.085)-500
 
 #define ZEROP		(1032/1.085)+500  //检测低电平所需的计数次数的下限  
 #define ZERON		(1032/1.085)-500

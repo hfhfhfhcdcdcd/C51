@@ -17,7 +17,7 @@ void main()
     LCD_ShowString(1, 12, "Num:");
     while (1)
     {
-        if (IR_GetDataFlag)
+        if (IR_GetDataFlag() || IR_GetRepeatFlag())
         {
             Addr = IR_GetAddress(); //获取地址码
             Cmd = IR_GetCommand(); //获取命令码
@@ -25,18 +25,20 @@ void main()
             {
                 Num = 50;
             }
-            else if (Cmd == 0x46)
+            if (Cmd == 0x46)
             {
                 Num = 100;
                 
             }
-            else if (Cmd == 0x15)
+            if (Cmd == 0x15)
             {
-                Num --;
+                Num--;
+                if (Num == 255) { Num = 100; }
             }
-            else if (Cmd == 0x09)
+            if (Cmd == 0x09)
             {
-                Num ++;
+                Num++;
+                if (Num == 100) { Num = 0; }
             }
             
             LCD_ShowHexNum(2, 1, Addr, 2);
