@@ -1,20 +1,22 @@
-#include "regx52.h"
+#include <REGX52.H>
 
+/**
+  * @brief  外部中断0初始化
+  * @param  无
+  * @retval 无
+  */
 void Int0_Init(void)
 {
-    //初始化外部中断0
-    // P3 = 0xFF;
-    IT0 = 1;    //下降沿触发
-    IE0 = 0;    //
-    EX0 = 1;    //允许外部中断0
-    PX0 = 1;    //外部中断0优先级
-    EA  = 1;     //开总中断
-    
-}    
+	IT0=1;
+	IE0=0;
+	EX0=1;
+	EA=1;
+	PX0=1;
+}
 
-/*
-void Int0_Routin(void) interrupt 0
+/*外部中断0中断函数模板
+void Int0_Routine(void) interrupt 0
 {
-	 
+	
 }
 */

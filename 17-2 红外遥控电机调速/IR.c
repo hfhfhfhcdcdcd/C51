@@ -2,78 +2,62 @@
 #include "Timer0.h"
 #include "Int0.h"
 
+unsigned int IR_Time;
+unsigned char IR_State;
 
-#define STARTP  	(13500/1.085)+500 //开始信号所需的计数次数的下限
-#define STARTN  	(13500/1.085)-500
+unsigned char IR_Data[4];
+unsigned char IR_pData;
 
-#define REPEATP 	(11250/1.085)+500 //重复信号所需的计数次数的下限
-#define REPEATN 	(11250/1.085)-500
-
-#define ZEROP		(1032/1.085)+500  //检测低电平所需的计数次数的下限  
-#define ZERON		(1032/1.085)-500
-
-#define ONEP		(2074/1.085)+500  //检测高电平所需的计数次数的下限
-#define ONEN 		(2074/1.085)-500
-
-
-unsigned int  IR_Time;        //两次中断间隔
-unsigned char IR_State;       //红外数据处理到那个阶段，所对应的状态码
-     
-unsigned char IR_Data[4];     //存储4个字节的红外数据，0->3
-unsigned char IR_pData;       //指向下一个要存的字节，0->31
-
-unsigned char IR_DataFlag;    //数据是否接收完毕
-unsigned char IR_RepeatFlag;  //是否重复接收数据
-unsigned char IR_Address;     //红外地址
-unsigned char IR_Command;     //红外命令
-
+unsigned char IR_DataFlag;
+unsigned char IR_RepeatFlag;
+unsigned char IR_Address;
+unsigned char IR_Command;
 
 /**
-  * @brief: 红外初始化
-  * @param: 无
-  * @retval: 无
+  * @brief  红外遥控初始化
+  * @param  无
+  * @retval 无
   */
 void IR_Init(void)
 {
-	Timer0Init();
+	Timer0_Init();
 	Int0_Init();
 }
 
 /**
-  * @brief: 判断是否接收到接收完毕的信号
-  * @param: 无
-  * @retval: 1->接收完毕 0->尚未接收完毕
+  * @brief  红外遥控获取收到数据帧标志位
+  * @param  无
+  * @retval 是否收到数据帧，1为收到，0为未收到
   */
 unsigned char IR_GetDataFlag(void)
 {
-	if (IR_DataFlag)
+	if(IR_DataFlag)
 	{
-		IR_DataFlag = 0;
+		IR_DataFlag=0;
 		return 1;
 	}
 	return 0;
 }
 
 /**
-  * @brief: 判断是否接收到重复信号
-  * @param: 无
-  * @retval: 1->重复信号 0->无需重复
+  * @brief  红外遥控获取收到连发帧标志位
+  * @param  无
+  * @retval 是否收到连发帧，1为收到，0为未收到
   */
 unsigned char IR_GetRepeatFlag(void)
 {
-	if (IR_RepeatFlag)
+	if(IR_RepeatFlag)
 	{
-		IR_RepeatFlag = 0;
+		IR_RepeatFlag=0;
 		return 1;
 	}
 	return 0;
-
 }
 
 /**
-  * @brief:  红外地址  数据接收
-  * @param: 无
-  * @retval: IR_Address 红外地址
+  * @brief  红外遥控获取收到的地址数据
+  * @param  无
+  * @retval 收到的地址数据
   */
 unsigned char IR_GetAddress(void)
 {
@@ -81,79 +65,77 @@ unsigned char IR_GetAddress(void)
 }
 
 /**
-  * @brief: 红外命令  数据接收
-  * @param: 无
-  * @retval: IR_Command 红外命令
+  * @brief  红外遥控获取收到的命令数据
+  * @param  无
+  * @retval 收到的命令数据
   */
 unsigned char IR_GetCommand(void)
 {
 	return IR_Command;
 }
 
-/**
-  * @brief: 红外信号处理中断服务程序
-  * @param: 无
-  * @retval: 无
-  */
-void Int0_Routin(void) interrupt 0
+//外部中断0中断函数，下降沿触发执行
+void Int0_Routine(void) interrupt 0
 {
-	if (IR_State == 0)//空闲状态
+	if(IR_State==0)				//状态0，空闲状态
 	{
-		Timer0_SetCounter(0);//计数器清零
-		Timer0_Run(1);//计数器开始计时
-		IR_State = 1;//进入下一个状态
+		Timer0_SetCounter(0);	//定时计数器清0
+		Timer0_Run(1);			//定时器启动
+		IR_State=1;				//置状态为1
 	}
-	else if (IR_State == 1)//等待开始信号或者重复信号
+	else if(IR_State==1)		//状态1，等待Start信号或Repeat信号
 	{
-		IR_Time = Timer0_GetCounter();//获取计数器值
-		Timer0_SetCounter(0);//计数器清零
-		if ((IR_Time>STARTN) && (IR_Time<STARTP))//判断是否是开始信号
+		IR_Time=Timer0_GetCounter();	//获取上一次中断到此次中断的时间
+		Timer0_SetCounter(0);	//定时计数器清0
+		//如果计时为13.5ms，则接收到了Start信号（判定值在12MHz晶振下为13500，在11.0592MHz晶振下为12442）
+		if(IR_Time>12442-500 && IR_Time<12442+500)
 		{
-			IR_State = 2;//进入下一个状态
+			IR_State=2;			//置状态为2
 		}
-		else if (IR_Time>REPEATN && IR_Time<REPEATP)//判断是否是重复信号
+		//如果计时为11.25ms，则接收到了Repeat信号（判定值在12MHz晶振下为11250，在11.0592MHz晶振下为10368）
+		else if(IR_Time>10368-500 && IR_Time<10368+500)
 		{
-			IR_RepeatFlag = 1;//重复信号标志
-			Timer0_Run(0);//计数器停止计时
-			IR_State = 0;//回到空闲状态
+			IR_RepeatFlag=1;	//置收到连发帧标志位为1
+			Timer0_Run(0);		//定时器停止
+			IR_State=0;			//置状态为0
 		}
-		else
+		else					//接收出错
 		{
-			IR_State = 1;//回到空闲状态
+			IR_State=1;			//置状态为1
 		}
 	}
-
-	else if (IR_State == 2)//解码0、1码
+	else if(IR_State==2)		//状态2，接收数据
 	{
-		IR_Time = Timer0_GetCounter();//获得上一次中断到这一次中断的间隔
-		Timer0_SetCounter(0);//获取到时间之后就立马清零，为下一次进中断时做准备
-
-		if ((IR_Time > ZERON) && (IR_Time < ZEROP))
+		IR_Time=Timer0_GetCounter();	//获取上一次中断到此次中断的时间
+		Timer0_SetCounter(0);	//定时计数器清0
+		//如果计时为1120us，则接收到了数据0（判定值在12MHz晶振下为1120，在11.0592MHz晶振下为1032）
+		if(IR_Time>1032-500 && IR_Time<1032+500)
 		{
-			IR_Data[IR_pData / 8] &= ~(0x01 << (IR_pData % 8));//将应该是0的位--置零
-			IR_pData++;//指针后移
+			IR_Data[IR_pData/8]&=~(0x01<<(IR_pData%8));	//数据对应位清0
+			IR_pData++;			//数据位置指针自增
 		}
-		else if ((IR_Time > ONEN) && (IR_Time < ONEP))
+		//如果计时为2250us，则接收到了数据1（判定值在12MHz晶振下为2250，在11.0592MHz晶振下为2074）
+		else if(IR_Time>2074-500 && IR_Time<2074+500)
 		{
-			IR_Data[IR_pData/8]|= (0x01 << (IR_pData % 8));//将应该是1的位 置1
-			IR_pData++;//指针后移
+			IR_Data[IR_pData/8]|=(0x01<<(IR_pData%8));	//数据对应位置1
+			IR_pData++;			//数据位置指针自增
 		}
-		else
+		else					//接收出错
 		{
-			IR_pData = 0;//指针清零
-			IR_State = 1;//解码失败，重新开始
+			IR_pData=0;			//数据位置指针清0
+			IR_State=1;			//置状态为1
 		}
-		if (IR_pData >= 32)
+		if(IR_pData>=32)		//如果接收到了32位数据
 		{
-			IR_pData = 0;
-			if ((IR_Data[0] == ~IR_Data[1]) && (IR_Data[2] == ~IR_Data[3]))//判断校验码是否正确,(高) ---- 命令反码_3 + 命令码_2 + 地址反码_1 + 地址码_0 -----（低）
+			IR_pData=0;			//数据位置指针清0
+			if((IR_Data[0]==~IR_Data[1]) && (IR_Data[2]==~IR_Data[3]))	//数据验证
 			{
-				IR_Address = IR_Data[0];
-				IR_Command = IR_Data[2];
-				IR_DataFlag = 1;
+				IR_Address=IR_Data[0];	//转存数据
+				IR_Command=IR_Data[2];
+				IR_DataFlag=1;	//置收到连发帧标志位为1
 			}
-			Timer0_Run(0);//解码成功，停止计时器
-			IR_State = 0;//解码成功，进入空闲状态
+			Timer0_Run(0);		//定时器停止
+			IR_State=0;			//置状态为0
 		}
 	}
 }

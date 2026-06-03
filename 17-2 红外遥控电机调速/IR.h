@@ -1,7 +1,6 @@
 #ifndef __IR_H__
 #define __IR_H__
 
-
 #define IR_POWER		0x45
 #define IR_MODE			0x46
 #define IR_MUTE			0x47
@@ -24,12 +23,10 @@
 #define IR_8			0x52
 #define IR_9			0x4A
 
-
-
-
 void IR_Init(void);
 unsigned char IR_GetDataFlag(void);
 unsigned char IR_GetRepeatFlag(void);
 unsigned char IR_GetAddress(void);
 unsigned char IR_GetCommand(void);
+
 #endif

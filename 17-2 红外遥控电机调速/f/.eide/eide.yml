@@ -24,6 +24,8 @@ virtualFolder:
     - path: ../Timer0.h
     - path: ../Motor.c
     - path: ../Motor.h
+    - path: ../Key.c
+    - path: ../Key.h
   folders: []
 dependenceList: []
 outDir: build
