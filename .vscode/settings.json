@@ -22,7 +22,9 @@
         "STDIO.H": "cpp",
         "stddef.h": "c",
         "STDDEF.H": "cpp",
-        "int0.h": "c"
+        "int0.h": "c",
+        "timer1.h": "c",
+        "motor.h": "c"
     },
     "Codegeex.CompletionDelay": 0.5
 }

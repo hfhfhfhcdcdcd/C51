@@ -12,10 +12,18 @@ virtualFolder:
     - path: ../Delay.h
     - path: ../Nixie.c
     - path: ../Nixie.h
-    - path: ../Timer0.c
-    - path: ../Timer0.h
     - path: ../../7-1 按键控制LED流水灯模式/key.c
     - path: ../key.h
+    - path: ../Timer1.c
+    - path: ../Timer1.h
+    - path: ../Int0.c
+    - path: ../Int0.h
+    - path: ../IR.c
+    - path: ../IR.h
+    - path: ../Timer0.c
+    - path: ../Timer0.h
+    - path: ../Motor.c
+    - path: ../Motor.h
   folders: []
 dependenceList: []
 outDir: build
@@ -28,6 +36,8 @@ targets:
       incList:
         - ..
         - e:/Keil_v5_C51/C51/INC/Atmel
+        - ..
+        - ..
       libList: []
     excludeList:
       - <virtual_root>/Buzzer.c

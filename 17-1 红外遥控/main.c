@@ -9,8 +9,8 @@ unsigned char Num, Addr, Cmd;
 void main()
 {
     //初始化
-    LCD_Init();
     IR_Init();
+    LCD_Init();
     //显示
     LCD_ShowString(1, 1, "Addr:");
     LCD_ShowString(1, 7, "Cmd:");
@@ -44,10 +44,6 @@ void main()
             LCD_ShowHexNum(2, 1, Addr, 2);
             LCD_ShowHexNum(2, 7, Cmd, 2);
             LCD_ShowNum(2, 12, Num, 3);
-            
-                 
         }
-        
-
     }
 }

@@ -1,44 +1,29 @@
-#include "regx52.h"
+#include <REGX52.H>
 #include "Delay.h"
-#include "key.h"
+#include "Key.h"
 #include "Nixie.h"
-#include "Timer0.h"
+#include "Motor.h"
+#include "IR.h"
 
-sbit Motor = P1 ^ 0;
-unsigned char Counter, Compare,KeyNum,Speed; //计数器和比较值
+unsigned char Command,Speed;
 
 void main()
 {
-    Timer0Init();
-    Compare = 5; //占空比
-    while (1)
-    {
-        KeyNum = Key();
-        if (KeyNum == 1)
-        {
-            Speed++;//速度加
-            Speed %= 4;
-            if (Speed == 0) { Compare = 0; }
-            if (Speed == 1) { Compare = 55; }
-            if (Speed == 2) { Compare = 80; }
-            if (Speed == 3) { Compare = 100; }
-        }
-            Nixie_Scan(1, Speed);
-    }
+	Motor_Init();
+	IR_Init();
+	while(1)
+	{
+		if(IR_GetDataFlag())	//如果收到数据帧
+		{
+			Command=IR_GetCommand();		//获取遥控器命令码
+			
+			if(Command==IR_0){Speed=0;Motor_SetSpeed(0);  }		//根据遥控器命令码设置速度
+			if(Command==IR_1){Speed=1;Motor_SetSpeed(50); }
+			if(Command==IR_2){Speed=2;Motor_SetSpeed(75); }
+			if(Command==IR_3){Speed=3;Motor_SetSpeed(100);}
+			
+		}
+		Nixie(1,Speed);						//数码管显示速度
+	}
 }
 
-void Timer0_Rountine() interrupt 1
-{
-    TH0 = 0xFF;
-    TL0 = 0x9C;
-    Counter++;
-    Counter %= 100;
-    if (Counter < Compare)
-    {
-        Motor = 1;
-    }
-    else
-    {
-        Motor = 0;
-    }
-}
