@@ -1,4 +1,4 @@
-#include <regx52.h>
+include <regx52.h>
 #include "Delay.h"
 
 unsigned char Key()

@@ -12,8 +12,6 @@ virtualFolder:
     - path: ../Delay.h
     - path: ../Nixie.c
     - path: ../Nixie.h
-    - path: ../../7-1 按键控制LED流水灯模式/key.c
-    - path: ../key.h
     - path: ../Timer1.c
     - path: ../Timer1.h
     - path: ../Int0.c
@@ -38,8 +36,6 @@ targets:
       incList:
         - ..
         - e:/Keil_v5_C51/C51/INC/Atmel
-        - ..
-        - ..
       libList: []
     excludeList:
       - <virtual_root>/Buzzer.c

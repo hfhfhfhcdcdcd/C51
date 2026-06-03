@@ -2,7 +2,7 @@
 #include "Timer1.h"
 
 //引脚定义
-sbit Motor=P1^0;
+sbit Motor = P1 ^ 0;
 
 unsigned char Counter,Compare;
 
