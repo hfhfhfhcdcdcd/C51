@@ -1,6 +1,0 @@
-{
-  "id": "1",
-  "name": "1",
-  "code": "void _74HC595_WriteByte(unsigned char Byte)\r\n{",
-  "description": "1"
-}

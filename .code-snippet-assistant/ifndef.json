@@ -1,6 +1,0 @@
-{
-  "id": "ifndef",
-  "name": "#ifndef",
-  "code": "#ifndef ___H__\n#define \n\n\n\n#endif ",
-  "description": "#ifndef"
-}
